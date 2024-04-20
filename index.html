@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DECI</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" class="login-input" placeholder="Username">
+        <div class="password-container">
+            <input type="password" class="login-input password-input" placeholder="Password">
+            <i class="toggle-password fas fa-eye-slash"></i>
+        </div>
+        <div class="password-strength">
+            <div class="progress-bar"></div>
+            <span class="strength-text"></span>
+        </div>
+        <button id="loginButton" class="login-button">Login</button>
+        <div class="login-error"></div>
+    </div>    
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const passwordInput = document.querySelector('.password-input');
+            const togglePassword = document.querySelector('.toggle-password');
+            const loginButton = document.getElementById('loginButton');
+
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                const strengthMeter = document.querySelector('.progress-bar');
+                const strengthText = document.querySelector('.strength-text');
+
+                const weaknesses = calculateStrength(password);
+
+                let strength = 100;
+                weaknesses.forEach(weakness => {
+                    strength -= weakness.deduction;
+                });
+
+                strengthMeter.style.width = `${strength}%`;
+
+                if (strength >= 80) {
+                    strengthText.textContent = 'Very Strong';
+                    strengthText.style.color = '#4caf50';
+                } else if (strength >= 60) {
+                    strengthText.textContent = 'Strong';
+                    strengthText.style.color = '#2196f3';
+                } else if (strength >= 40) {
+                    strengthText.textContent = 'Moderate';
+                    strengthText.style.color = '#ffc107';
+                } else {
+                    strengthText.textContent = 'Weak';
+                    strengthText.style.color = '#f44336';
+                }
+            });
+
+            function calculateStrength(password) {
+                const weaknesses = [];
+                weaknesses.push({
+                    message: 'Too short',
+                    deduction: Math.max(0, 10 - password.length)
+                });
+
+                if (password.length < 8) {
+                    weaknesses.push({
+                        message: 'Password should be at least 8 characters',
+                        deduction: 20
+                    });
+                }
+
+                if (!/[a-z]/.test(password)) {
+                    weaknesses.push({
+                        message: 'Add a lowercase character',
+                        deduction: 20
+                    });
+                }
+
+                if (!/[A-Z]/.test(password)) {
+                    weaknesses.push({
+                        message: 'Add an uppercase character',
+                        deduction: 20
+                    });
+                }
+
+                if (!/[0-9]/.test(password)) {
+                    weaknesses.push({
+                        message: 'Add a number',
+                        deduction: 20
+                    });
+                }
+
+                return weaknesses;
+            }
+
+            loginButton.addEventListener('click', function() {
+                window.location.href = "home.html";
+            });
+        });
+    </script>
+</body>
+</html>

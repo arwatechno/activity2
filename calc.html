@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="calc.css">
+    <title>Calculator</title>
+</head>
+<body>
+
+    <header>
+        <h1>calculator</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="about.html">about</a>
+            <a href="calc.html">calculator</a>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="calculator">
+        <div id="calc">
+            <div class="input">
+                <!--the user writes a mathematical expression here-->
+                <input type="text" id="input-box1">                              
+            </div>
+            <div class="nums">
+                <!-- Buttons for  numbers-->
+                <button class="num" onclick="append('1')">1</button>
+                <button class="num" onclick="append('2')">2</button>
+                <button class="num" onclick="append('3')">3</button>
+                <button class="num" onclick="append('4')">4</button>
+                <button class="num" onclick="append('5')">5</button>
+                <button class="num" onclick="append('6')">6</button>
+                <button class="num" onclick="append('7')">7</button>
+                <button class="num" onclick="append('8')">8</button>
+                <button class="num" onclick="append('9')">9</button>
+                <button class="num" onclick="append('0')">0</button>
+            </div>
+            <div class="ops">
+                <!-- Buttons for  operators-->
+                <button class="op" onclick="append('+')">+</button>
+                <button class="op" onclick="append('-')">-</button>
+                <button class="op" onclick="append('*')">x</button>
+                <button class="op" onclick="append('/')">÷</button>
+            </div>
+            <div class="others">
+                <!-- Button for deleting character from the input -->
+                <button class="other" onclick="deleteChar()">del</button>
+                <!-- Button for clearing the input -->
+                <button class="other" onclick="clearInput()">clear</button>
+            </div>
+            <div>
+                <button id="calculate" onclick="calculate()">Calculate</button>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Information bar -->
+    <div id="info">
+        <!-- If result of input-box1 equals the answer in input-box2 -->
+        <div class="result">
+            <!-- The result -->
+            <label id="result">Result:</label>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
